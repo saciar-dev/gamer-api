@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  web:
+    container_name: exampleapp
+    restart: always
+    build: .
+    ports:
+      - "5000:3000"
+    links:
+      - database
+    volumes:
+      - .:/usr/src/app
+  database:
+    container_name: mysqlDatabase
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: R55Gt9Bf
+      MYSQL_DATABASE: games_db
+      MYSQL_USER: db_user
+      MYSQL_PASSWORD: db_games
+    ports:
+      - "3308:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    logging:
+      driver: none
+volumes:
+  dbdata:
